@@ -1,13 +1,19 @@
+module MAC_wrapper(io_in, io_out);
+  input [7:0] io_in;
+  output [7:0] io_out;
+  
+  MAC MAC_unit(io_in[4:2], io_in[7:5], io_out, io_in[1], io_in[0]);
+  
+endmodule
+
 module MAC(x, w, out, rst, clk);
 
-  parameter N = 8;
-
-  input [N-1:0] x, w;
+  input [2:0] x, w;
   input clk, rst;
 
-  output reg [2*N-1:0] out;
+  output reg [7:0] out;
 
-  always @(posedge clk)
+  always @(posedge clk or posedge rst)
     begin
       if(rst)
         out <= 0;
